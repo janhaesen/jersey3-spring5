@@ -1,0 +1,59 @@
+plugins {
+    id 'war'
+    id 'java'
+}
+
+//mainClassname = 'org.jersey.configuration.Application'
+group = 'org.jersey'
+version = '0.0.1'
+sourceCompatibility = '1.17'
+targetCompatibility = '1.17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring
+    implementation group: 'org.springframework', name: 'spring-core', version: '5.3.13'
+    implementation group: 'org.springframework', name: 'spring-beans', version: '5.3.13'
+    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.13'
+    implementation group: 'org.springframework', name: 'spring-web', version: '5.3.13'
+
+    // Api
+    implementation group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: '3.0.3'
+    implementation (group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: '3.0.3') {
+        exclude group: 'org.glassfish.hk2', module: 'hk2'
+    }
+    implementation group: 'org.glassfish.jersey.core', name: 'jersey-server', version: '3.0.3'
+    implementation group: 'org.glassfish.jersey.core', name: 'jersey-common', version: '3.0.3'
+    implementation group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '3.0.3'
+
+    implementation group: 'org.glassfish.hk2', name: 'spring-bridge', version: '3.0.2'
+    implementation (group: 'org.glassfish.jersey.ext', name: 'jersey-spring5', version: '3.0.0-M6') {
+//        exclude group: 'org.glassfish.jersey.inject', module: 'jersey-hk2'
+        exclude group: 'org.glassfish.hk2', module: 'hk2'
+    }
+    implementation group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '2.0.0'
+    implementation group: 'jakarta.inject', name: 'jakarta.inject-api', version: '2.0.1'
+    implementation group: 'jakarta.ws.rs', name: 'jakarta.ws.rs-api', version: '3.0.0'
+    compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '5.0.0'
+    runtimeOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+
+    // Application
+    implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '10.0.13'
+    implementation group: 'org.apache.tomcat', name: 'tomcat-jasper', version: '10.0.13'
+
+    // Logging
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
+
+    // Test dependencies
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+}
